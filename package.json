@@ -1,0 +1,39 @@
+{
+  "name": "vue-webpack",
+  "version": "1.0.0",
+  "description": "Sample vue-webpack application",
+  "main": "index.js",
+  "dependencies": {
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "vue-loader": "^15.4.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --progress --config build/webpack.config.dev.js",
+    "prod": "webpack --config build/webpack.config.prod.js",
+    "build": "webpack --config build/webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maneeshnanu/vue-webpack.git"
+  },
+  "keywords": [
+    "vue",
+    "webpack",
+    "example"
+  ],
+  "author": "Maneesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maneeshnanu/vue-webpack/issues"
+  },
+  "homepage": "https://github.com/maneeshnanu/vue-webpack#readme"
+}
