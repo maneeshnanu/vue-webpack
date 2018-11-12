@@ -9,9 +9,6 @@ const PORT = 8080
 
 module.exports = {
   mode: 'development',
-  entry: [
-    './src/app.js'
-  ],
   devServer: {
     hot: true,
     watchOptions: {
@@ -30,11 +27,12 @@ module.exports = {
       },
       {
         test: /\.styl(us)?$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'stylus-loader'
-        ]
+        use: [ 'vue-style-loader', 'css-loader', 'stylus-loader' ]
+      },
+      {
+        test: /\.(js|vue)$/,
+        use: 'eslint-loader',
+        enforce: 'pre'
       }
     ]
   },
