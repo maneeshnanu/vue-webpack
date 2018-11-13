@@ -1,23 +1,25 @@
 'use strict'
 
 const webpack = require('webpack')
-const { VueLoaderPlugin } = require('vue-loader')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const path = require('path')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.config.base')
 
 const HOST = 'localhost'
 const PORT = 8080
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
-
-module.exports = {
+module.exports = merge(baseConfig, {
   mode: 'development',
   devServer: {
+    publicPath: '/',
+    contentBase: 'dist',
+    host: HOST,
+    port: PORT,
     hot: true,
+    clientLogLevel: 'warning',
+    compress: true,
+    open: true,
+    overlay: { warnings: false, errors: true },
+    quiet: true,
     watchOptions: {
       poll: true
     }
@@ -25,39 +27,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        use: 'vue-loader'
-      },
-      {
-        test: /\.js$/,
-        use: 'babel-loader'
-      },
-      {
+        test: /\.css$/,
+        use: [ 'vue-style-loader', 'css-loader' ]
+      }, {
         test: /\.styl(us)?$/,
-        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader' ]
-      },
-      {
-        test: /\.(js|vue)$/,
-        use: 'eslint-loader',
-        enforce: 'pre'
+        use: [ 'vue-style-loader', 'css-loader', 'stylus-loader' ]
       }
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "index.html",
-      inject: true
-    }),
-    new CopyWebpackPlugin([{
-      from: resolve('static/img'),
-      to: resolve('dist/static/img'),
-      toType: 'dir'
-    }]),
-    new MiniCssExtractPlugin({
-      filename: 'main.css'
-    })
+    new webpack.HotModuleReplacementPlugin()
   ]
-}
+})

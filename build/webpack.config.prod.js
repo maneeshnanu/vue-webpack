@@ -1,21 +1,36 @@
 'use strict'
 
-const { VueLoaderPlugin } = require('vue-loader')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.config.base')
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
-module.exports = {
+module.exports = merge(baseConfig, {
   mode: 'production',
-  entry: [
-    './src/app.js'
-  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendorManeesh",
+          chunks: "all",
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        use: 'vue-loader'
+        test: /\.css?$/,
+        use: [ MiniCssExtractPlugin.loader, 'css-loader' ]
+      }, {
+        test: /\.styl(us)?$/,
+        use: [ MiniCssExtractPlugin.loader, , 'css-loader', 'stylus-loader' ]
       }
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new MiniCssExtractPlugin({
+      filename: 'main.css'
+    })
   ]
-}
+})
