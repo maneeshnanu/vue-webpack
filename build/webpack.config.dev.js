@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 const HOST = 'localhost'
@@ -33,7 +34,7 @@ module.exports = {
       },
       {
         test: /\.styl(us)?$/,
-        use: [ 'vue-style-loader', 'css-loader', 'stylus-loader' ]
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader' ]
       },
       {
         test: /\.(js|vue)$/,
@@ -54,6 +55,9 @@ module.exports = {
       from: resolve('static/img'),
       to: resolve('dist/static/img'),
       toType: 'dir'
-    }])
+    }]),
+    new MiniCssExtractPlugin({
+      filename: 'main.css'
+    })
   ]
 }
