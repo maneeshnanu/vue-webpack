@@ -1,7 +1,7 @@
 {
   "name": "vue-webpack",
   "version": "1.0.0",
-  "description": "Sample vue-webpack application",
+  "description": "Sample vue-webpack4 application",
   "main": "index.js",
   "dependencies": {
     "vue": "^2.5.17",
@@ -47,6 +47,11 @@
     "build": "webpack --config build/webpack.config.dev.js"
   },
   "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,vue}"
+    ],
+    "coverageDirectory": ".jest_coverage",
     "moduleFileExtensions": [
       "js",
       "vue"
@@ -55,8 +60,8 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     },
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.vue$": "vue-jest"
     },
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"
